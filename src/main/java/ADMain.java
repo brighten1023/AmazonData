@@ -4,7 +4,9 @@ import java.util.HashSet;
 
 public class ADMain {
     public static void main(String[] args){
-        HashMap<String,String> cmap = new HashMap<String,String>();
+        //Fault Check
+        FaultCheck.getFault();
+        /*HashMap<String,String> cmap = new HashMap<String,String>();
         cmap.put("None","None");
         HashSet<String> cset = new HashSet<String>();
         HashSet<String> keywords = new HashSet<String>();
@@ -19,10 +21,10 @@ public class ADMain {
         keywords.add("weight");
         keywords.add("availabledate");
         keywords.add("curprice");
-        String mapPath = "/Users/brighten/Downloads/AmazonBTG/BTGTSV/AmazonInventory.tsv";
-        String oldPath = "/Users/brighten/Downloads/AmazonBTG/BTGTSV/a.tsv";
-        String finalPath = "/Users/brighten/Downloads/AmazonBTG/BTGTSV/FinalSummary.tsv";
-        //TODO:Change path here!!!!
+        String mapPath = "/home/bright/Documents/AmazonScData/BTGTSV/AmazonInventory.tsv";
+        String oldPath = "/home/bright/Documents/AmazonScData/BTGTSV/SummaryInfoPage1.tsv";
+        String finalPath = "/home/bright/Documents/AmazonScData/BTGTSV/AmazonDataSummary.tsv";
+
         BuidMap.getMap(mapPath,cmap);
         try{
             File readTsv1 = new File(oldPath);
@@ -43,7 +45,7 @@ public class ADMain {
                     String itemAttr = CleanAttribute.getAttr(itemAttrSet,keywords);
                     String[] subCode = code.trim().split(":");
                     int len = subCode.length;
-                    writePage.write(subCode[len - 2] + ":" + subCode[len - 1] + "\t" + cmap.get(subCode[len - 2]) + "\t" + itemAttr);
+                    writePage.write(subCode[len - 2] + "\t" + subCode[len - 1] + "\t" + cmap.get(subCode[len - 1]) + itemAttr);
                     writePage.flush();
                     writePage.newLine();
                     cset.add(subCode[len - 2] + ":" + subCode[len - 1]);
@@ -51,21 +53,23 @@ public class ADMain {
                         len--;
                         if (!cset.contains(subCode[len - 2] + ":" + subCode[len - 1])) {
                             cset.add(subCode[len - 2] + ":" + subCode[len - 1]);
-                            writePage.write(subCode[len - 2] + ":" + subCode[len - 1] + "\t" + cmap.get(subCode[len - 2]));
+                            writePage.write(subCode[len - 2] + "\t" + subCode[len - 1] + "\t" + cmap.get(subCode[len - 1]));
                             writePage.flush();
                             writePage.newLine();
                         }
                     }
+                    //writePage.newLine();
                 }
 
             }
 
             writePage.close();
             readerPage.close();
+            System.out.println("Done!!!!!!!!!");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
